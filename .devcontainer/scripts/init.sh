@@ -5,7 +5,7 @@ sleep 10
 
 # 初始化数据库
 echo "初始化数据库..."
-docker exec -i mysql mysql -uroot -p123456 master_db < /workspaces/${LOCAL_WORKSPACE_FOLDER}/mysql-init.sql
+docker exec -i mysql mysql -u root -p 123456 master_db < /workspaces/${LOCAL_WORKSPACE_FOLDER}/mysql-init.sql
 
 # 启动 Spring Boot
 echo "启动 Spring Boot..."
