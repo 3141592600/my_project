@@ -25,10 +25,10 @@ services:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/master_db?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=utf-8
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: 123456
-    working_dir: /workspaces/${LOCAL_WORKSPACE_FOLDER}/backend
+    working_dir: /workspaces/my_project/backend
     command: mvn spring-boot:run
     volumes:
-      - ./:/workspaces/${LOCAL_WORKSPACE_FOLDER}
+      - ./backend:/workspaces/my_project/backend
     restart: always
 
   frontend:
@@ -36,10 +36,10 @@ services:
     container_name: vue
     ports:
       - "5173:5173"
-    working_dir: /workspaces/${LOCAL_WORKSPACE_FOLDER}/frontend
+    working_dir: /workspaces/my_project/frontend
     command: npm install && npm run dev -- --host 0.0.0.0
     volumes:
-      - ./:/workspaces/${LOCAL_WORKSPACE_FOLDER}
+      - ./frontend:/workspaces/my_project/frontend
     restart: always
 
 volumes:
