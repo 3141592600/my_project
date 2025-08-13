@@ -2,9 +2,9 @@
   "name": "Spring Boot + Vue + MySQL Dev",
   "dockerComposeFile": ["../docker-compose.yml"],
   "service": "backend",
-  "workspaceFolder": "/workspace",
+  "workspaceFolder": "/workspaces/${localWorkspaceFolder}",
   "forwardPorts": [8080, 5173, 3306],
-  "postCreateCommand": "echo 'Codespaces Dev Container ready!'",
+  "postCreateCommand": "chmod +x .devcontainer/scripts/init.sh && .devcontainer/scripts/init.sh",
   "customizations": {
     "vscode": {
       "extensions": [
