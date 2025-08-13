@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.work.mapper.master.AdminUserMapper">
+
+    <update id="updateMerchantInfo" parameterType="map">
+        UPDATE merchant_registry
+        <set>
+            <if test="merchantInfo.merchant_name != null">merchant_name = #{merchantInfo.merchant_name},</if>
+            <if test="merchantInfo.contact_name != null">contact_name = #{merchantInfo.contact_name},</if>
+            <if test="merchantInfo.contact_phone != null">contact_phone = #{merchantInfo.contact_phone},</if>
+            <if test="merchantInfo.email != null">email = #{merchantInfo.email},</if>
+            <if test="merchantInfo.password != null">password = #{merchantInfo.password},</if>
+            <if test="merchantInfo.status != null">status = #{merchantInfo.status},</if>
+        </set>
+        WHERE merchant_id = #{merchant_id}
+    </update>
+
+    <update id="createTable" parameterType="string">
+        CREATE TABLE IF NOT EXISTS `${tableName}` (
+            id BIGINT PRIMARY KEY AUTO_INCREMENT,
+            merchant_id VARCHAR(64) NOT NULL,
+            device_code VARCHAR(64),
+            device_type VARCHAR(64),
+            latest_status VARCHAR(32),
+            total_output_quantity DECIMAL(18,3) DEFAULT 0.000,
+            total_input_quantity DECIMAL(18,3) DEFAULT 0.000,
+            remaining_quantity DECIMAL(18,3) DEFAULT 0.000,
+            pay_status TINYINT(1) DEFAULT 0,
+            is_disabled TINYINT(1) DEFAULT 0,
+            create_time DATETIME DEFAULT CURRENT_TIMESTAMP,
+            update_time DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+    </update>
+
+    <update id="createTable_allDevice" parameterType="string">
+        CREATE TABLE IF NOT EXISTS all_device (
+              id BIGINT AUTO_INCREMENT PRIMARY KEY,
+              deviceTableName VARCHAR(255) NOT NULL
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+    </update>
+
+    <select id="checkTableExists" resultType="boolean">
+        SELECT COUNT(*) > 0
+        FROM information_schema.tables
+        WHERE table_schema = DATABASE()
+          AND table_name = '${tableName}'
+    </select>
+
+    <!-- 动态插入，插入deviceInfo非null字段 -->
+    <insert id="insertDevice" parameterType="map">
+        INSERT INTO `${tableName}`
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="device.merchant_id != null">merchant_id,</if>
+            <if test="device.device_code != null">device_code,</if>
+            <if test="device.device_type != null">device_type,</if>
+            <if test="device.latest_status != null">latest_status,</if>
+            <if test="device.total_output_quantity != null">total_output_quantity,</if>
+            <if test="device.total_input_quantity != null">total_input_quantity,</if>
+            <if test="device.remaining_quantity != null">remaining_quantity,</if>
+            <if test="device.pay_status != null">pay_status,</if>
+            <if test="device.is_disabled != null">is_disabled,</if>
+            <if test="device.create_time != null">create_time,</if>
+            <if test="device.update_time != null">update_time,</if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+            <if test="device.merchant_id != null">#{device.merchant_id},</if>
+            <if test="device.device_code != null">#{device.device_code},</if>
+            <if test="device.device_type != null">#{device.device_type},</if>
+            <if test="device.latest_status != null">#{device.latest_status},</if>
+            <if test="device.total_output_quantity != null">#{device.total_output_quantity},</if>
+            <if test="device.total_input_quantity != null">#{device.total_input_quantity},</if>
+            <if test="device.remaining_quantity != null">#{device.remaining_quantity},</if>
+            <if test="device.pay_status != null">#{device.pay_status},</if>
+            <if test="device.is_disabled != null">#{device.is_disabled},</if>
+            <if test="device.create_time != null">#{device.create_time},</if>
+            <if test="device.update_time != null">#{device.update_time},</if>
+        </trim>
+    </insert>
+
+    <update id="updateDevice" parameterType="map">
+        UPDATE `${tableName}`
+        <set>
+            <if test="device.merchant_id != null">merchant_id = #{device.merchant_id},</if>
+            <if test="device.device_code != null">device_code = #{device.device_code},</if>
+            <if test="device.device_type != null">device_type = #{device.device_type},</if>
+            <if test="device.latest_status != null">latest_status = #{device.latest_status},</if>
+            <if test="device.total_output_quantity != null">total_output_quantity = #{device.total_output_quantity},</if>
+            <if test="device.total_input_quantity != null">total_input_quantity = #{device.total_input_quantity},</if>
+            <if test="device.remaining_quantity != null">remaining_quantity = #{device.remaining_quantity},</if>
+            <if test="device.pay_status != null">pay_status = #{device.pay_status},</if>
+            <if test="device.update_time != null">update_time = #{device.update_time},</if>
+        </set>
+        WHERE  id= #{device.id}
+    </update>
+
+</mapper>

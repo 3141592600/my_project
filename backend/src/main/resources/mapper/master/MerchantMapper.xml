@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.work.mapper.master.MerchantMapper">
+
+    <insert id="insertMerchant" parameterType="com.example.work.entity.master.MerchantRegistry">
+        INSERT INTO merchant_registry (
+            merchant_id, merchant_name, contact_name, contact_phone, email,
+            username, password, database_name, register_time, status
+        ) VALUES (
+                     #{merchant_id}, #{merchant_name}, #{contact_name}, #{contact_phone}, #{email},
+                     #{username}, #{password}, #{database_name}, #{register_time}, #{status}
+                 )
+    </insert>
+
+    <select id="existsByUsername" resultType="boolean" parameterType="string">
+        SELECT COUNT(*) > 0 FROM merchant_registry WHERE username = #{username}
+    </select>
+
+
+    <select id="selectByMerchantId" resultType="com.example.work.entity.master.MerchantRegistry">
+        SELECT * FROM merchant_registry WHERE merchant_id = #{merchantId}
+    </select>
+
+    <select id="getJwtSecretByMerchantId" resultType="string">
+        SELECT jwt_secret_key
+        FROM merchant_registry
+        WHERE merchant_id = #{merchantId}
+    </select>
+
+    <update id="updateMerchantInfo" parameterType="com.example.work.entity.master.MerchantRegistry">
+        UPDATE merchant_registry
+        <set>
+            <if test="merchant_name != null">merchant_name = #{merchant_name},</if>
+            <if test="contact_name != null">contact_name = #{contact_name},</if>
+            <if test="contact_phone != null">contact_phone = #{contact_phone},</if>
+            <if test="email != null">email = #{email},</if>
+            <if test="username != null">username = #{username},</if>
+            <if test="password != null">password = #{password},</if>
+            <if test="database_name != null">database_name = #{database_name},</if>
+            <if test="register_time != null">register_time = #{register_time},</if>
+            <if test="status != null">status = #{status},</if>
+            update_time = NOW()
+        </set>
+        WHERE merchant_id = #{merchant_id}
+    </update>
+
+</mapper>

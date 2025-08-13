@@ -1,0 +1,11 @@
+# Spring Boot
+backend/target/
+backend/.idea/
+backend/.classpath
+backend/.project
+backend/.settings/
+
+# Vue
+frontend/node_modules/
+frontend/dist/
+frontend/.env.local
