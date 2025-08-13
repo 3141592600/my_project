@@ -4,7 +4,7 @@
   "service": "backend",
   "workspaceFolder": "/workspace",
   "forwardPorts": [8080, 5173, 3306],
-  "postCreateCommand": "chmod +x .devcontainer/scripts/init.sh && .devcontainer/scripts/init.sh",
+  "postCreateCommand": "echo 'Codespaces Dev Container ready!'",
   "customizations": {
     "vscode": {
       "extensions": [
