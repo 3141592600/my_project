@@ -1,6 +1,8 @@
 {
   "name": "Spring Boot + Vue + MySQL Dev",
-  "dockerComposeFile": ["docker-compose.yml"],
+  "dockerComposeFile": [
+    "../docker-compose.yml"
+  ],
   "service": "backend",
   "workspaceFolder": "/workspaces/my_project",
   "forwardPorts": [8080, 5173, 3306],
