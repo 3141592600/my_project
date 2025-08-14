@@ -15,7 +15,7 @@ services:
     restart: always
 
   backend:
-    image: maven:3.9.0-openjdk-17
+    image: maven:3.9.2-eclipse-temurin-17
     container_name: springboot
     ports:
       - "8080:8080"
